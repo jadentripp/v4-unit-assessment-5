@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import noImage from './../../assets/no_image.jpg';
 import './Form.css';
+import Dash from '../Dash/Dash';
 
 class Form extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class Form extends Component {
   }
 
   submit() {
+    this.props.history.push(Dash)
     axios.post('/api/post', this.state)
       .then(() => 'replace this string with something useful')
       .catch((err) => console.log(err))

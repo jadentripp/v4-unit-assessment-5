@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import logo from './../../assets/helo_logo.png';
 import './Auth.css';
+import Dash from '../Dash/Dash';
 
 class Auth extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Auth extends Component {
   login() {
     axios.post('/api/auth/login', this.state)
       .then(res => {
-        //code here
+        this.props.history.push(Dash)
       })
       .catch(err => {
         console.log(err)
@@ -35,7 +36,7 @@ class Auth extends Component {
   register() {
     axios.post('/api/auth/register', this.state)
       .then(res => {
-        //code here
+        this.props.history.push(Dash)
       })
       .catch(err => {
         console.log(err)
