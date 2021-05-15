@@ -4,21 +4,25 @@ module.exports = {
     register: async (req, res) =>{
         const db = req.app.get('db')
         const {username, password, profile_pic} = req.body
-        const [checkUsername] = await db.auth.check_username(username)
+        console.log(req.body)
+        const [checkUsername] = await db.user.check_username(username)
         if(checkUsername){
+            console.log('hit')
             return res.status(420).send('Username already in use')
         }
         const salt = bcrypt.genSaltSync(10)
         const hash = bcrypt.hashSync(password, salt)
-        const [user] = await db.auth.create_user(username, profile_pic, hash)
+        const [user] = await db.user.create_user(username, profile_pic, hash)
         delete user.password
         req.session.user = user
+        console.log(req.session.user)
         return res.status(200).send(req.session.user)
     },
     login: async (req, res) => {
         const db = req.app.get('db')
-        const {username, password, profile_pic} = req.body
-        const [user] = await db.auth.check_username(username)
+        const {username, password} = req.body
+        const [user] = await db.user.check_username(username)
+        console.log(user)
         if(!user){
             return res.status(401).send('User not found')
         }

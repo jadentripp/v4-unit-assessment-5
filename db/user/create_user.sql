@@ -1,5 +1,5 @@
 INSERT INTO helo_users 
-(username, password, Profile_pic)
+(username, profile_pic, password)
 VALUES
-('jadoTripp', 'karateLover98', `https://robohash.org/${username}.png`)
+($1, $2, $3)
 RETURNING *;
